@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (userConnected) => {
             if (userConnected) {
-                setUser(userConnected); // Actualiza el estado `user`
+                setUser(userConnected); 
                 const userDocRef = doc(db, "users", userConnected.uid);
                 try {
                     const docSnap = await getDoc(userDocRef);

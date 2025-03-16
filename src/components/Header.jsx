@@ -29,7 +29,6 @@ function Header() {
             </button>
             <div className="flex-auto text-center text-5xl font-sans font-bold ml-95">ÁVILA GUIDE</div>
             <div className="flex-none block">
-                <img className="m-10" src="https://www.unimet.edu.ve/wp-content/uploads/2023/07/Logo-footer.png" alt="unimetLogo" />
             </div>
             {location.pathname !== '/login' && (
                 Logged ? (
@@ -38,6 +37,7 @@ function Header() {
                     <button className='m-10 rounded-lg bg-amber-600 cursor-pointer text-xl border-black border-4 p-4 place-items-center' onClick={() => navigate('/login')}>Iniciar Sesión</button>
                 )
             )}
+            <img className="m-10" src="https://www.unimet.edu.ve/wp-content/uploads/2023/07/Logo-footer.png" alt="unimetLogo" />
         </div>
     )
 }

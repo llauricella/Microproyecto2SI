@@ -3,15 +3,11 @@ import Login from './Login';
 import logoImg from '../assets/logo.png'; 
 import { useNavigate} from "react-router-dom";
 import { use } from 'react';
-import { UserContext } from '../Context/UserContext';
 
 
 function Principal({ onNavigate }) {
     const navigate = useNavigate();
-    const contextuser = use(UserContext);
-    const  {user, setUser} = contextuser;
-    console.log(user);
-    return (
+        return (
         <div>
             <img src={logoImg} alt="Logo" className='border-2 rounded-lg col-span-4 block justify-self-center mt-20'/>
             <div className="grid grid-cols-4 gap-2 text-center mt-25">
