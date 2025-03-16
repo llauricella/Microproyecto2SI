@@ -5,6 +5,8 @@ import Principal from "./components/Principal";
 import Login from "./components/Login";
 import Rutas from "./components/Rutas";
 import Register from "./components/Register"
+import Guias from "./components/Guias"
+import Información from "./components/Información";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/rutas" element={<Rutas />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/guias" element={<Guias />} />
+        <Route path="/informacion" element={<Información/>} />
         </Routes>
   </div>
   </Router>
