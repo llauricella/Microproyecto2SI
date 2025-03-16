@@ -9,6 +9,8 @@ import Agenda from "./components/Agenda";
 import Register from "./components/Register"
 import Guias from "./components/Guias"
 import Información from "./components/Información";
+import Perfil from "./components/Perfil";
+import Contacto from "./components/Contacto";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/guias" element={<Guias />} />
         <Route path="/informacion" element={<Información/>} />
+        <Route path="/perfil" element={<Perfil/>} />
+        <Route path="/contacto" element={<Contacto/>} />
         </Routes>
   </div>
   </Router>
