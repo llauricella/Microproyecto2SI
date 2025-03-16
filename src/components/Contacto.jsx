@@ -13,7 +13,7 @@ export default function Contacto() {
                     <p><strong>Teléfono:</strong> 0424-1671440</p>
                 </div>
                 <div className="mb-4">
-                    <p><strong>Ubicación:</strong> Calle Falsa 123, Ciudad, País</p>
+                    <p><strong>Ubicación:</strong> Ditribuidor metropolitano Caracas, 1060, Miranda</p>
                 </div>
             </div>
         </div>
