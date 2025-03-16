@@ -4,6 +4,8 @@ import Header from "./components/Header"
 import Principal from "./components/Principal";
 import Login from "./components/Login";
 import Rutas from "./components/Rutas";
+import Calendar from "./components/Calendar"
+import Planes from "./components/Planes";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/" element={<Principal />} />
         <Route path="/login" element={<Login />} />
         <Route path="/rutas" element={<Rutas />} />
+        <Route path="/agenda" element={<Calendar />} />
+        <Route path="/planes" element={<Planes />} />
         </Routes>
   </div>
   </Router>

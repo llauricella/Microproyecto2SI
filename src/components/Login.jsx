@@ -6,7 +6,7 @@ function Login() {
     return (
         <div className="flex flex-col justify-self-center min-h-screen">
             <div className='bg-white m-5 rounded-md p-10 text-center text-3xl font-bold'>Log In</div>
-            <div className='flex flex-col justify-self-center gap-6 bg-white rounded-md p-10'>
+            <div className='flex flex-col justify-center gap-6 bg-white rounded-md p-10'>
                 <img src={logoImg} alt="Logo" className='border-2 rounded-lg'/>
                 <input className="p-1 border-2 rounded-md" type="text" placeholder='User'/>
                 <input className="p-1 border-2 rounded-md" type="Password" placeholder='Contraseña'/>
