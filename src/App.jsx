@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Principal from "./components/Principal";
 import Login from "./components/Login";
 import Rutas from "./components/Rutas";
+import Register from "./components/Register"
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
         <Route path="/" element={<Principal />} />
         <Route path="/login" element={<Login />} />
         <Route path="/rutas" element={<Rutas />} />
+        <Route path="/register" element={<Register />} />
         </Routes>
   </div>
   </Router>
 )}
-/* hola */ 
+
 export default App
