@@ -4,8 +4,12 @@ import Header from "./components/Header"
 import Principal from "./components/Principal";
 import Login from "./components/Login";
 import Rutas from "./components/Rutas";
+<<<<<<< HEAD
 import Calendar from "./components/Calendar"
 import Planes from "./components/Planes";
+=======
+import Register from "./components/Register"
+>>>>>>> d4893206b9622eeab61640b675b4f41c07c23b18
 
 function App() {
   return (
@@ -16,11 +20,15 @@ function App() {
         <Route path="/" element={<Principal />} />
         <Route path="/login" element={<Login />} />
         <Route path="/rutas" element={<Rutas />} />
+<<<<<<< HEAD
         <Route path="/agenda" element={<Calendar />} />
         <Route path="/planes" element={<Planes />} />
+=======
+        <Route path="/register" element={<Register />} />
+>>>>>>> d4893206b9622eeab61640b675b4f41c07c23b18
         </Routes>
   </div>
   </Router>
 )}
-/* hola */ 
+
 export default App

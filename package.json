@@ -12,7 +12,11 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.12",
     "axios": "^1.8.2",
+<<<<<<< HEAD
     "date-fns": "^4.1.0",
+=======
+    "firebase": "^11.4.0",
+>>>>>>> d4893206b9622eeab61640b675b4f41c07c23b18
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0",
