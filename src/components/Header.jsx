@@ -24,12 +24,17 @@ function Header() {
 
     return (
         <div className='flex flex-row justify-between items-center h-full'>
-            <button className='flex-none block cursor-pointer bg-white rounded-lg m-10'>
-                <img className='size-10 m-6' src="https://www.svgrepo.com/show/509382/menu.svg" alt="menuLogo" onClick={() => navigate("/")}/>
+            <button className='flex-none block cursor-pointer bg-white rounded-lg m-10'onClick={() => navigate("/")}>
+                <img className='size-10 m-6' src="https://www.svgrepo.com/show/509382/menu.svg" alt="menuLogo" />
             </button>
-            <div className="flex-auto text-center text-5xl font-sans font-bold ml-95">ÁVILA GUIDE</div>
-            <div className="flex-none block">
+            <div>
+                {Logged && profile && (
+                    <div className="text-xl font-bold m-10">
+                        Bienvenido, {profile.name}
+                    </div>
+                )}
             </div>
+            <div className="flex-auto text-center text-5xl font-sans font-bold ml-10">ÁVILA GUIDE</div>
             {location.pathname !== '/login' && (
                 Logged ? (
                     <button className='m-10 rounded-lg bg-amber-600 cursor-pointer text-xl border-black border-4 p-4 place-items-center' onClick={handleLogout}>Cerrar Sesión</button>
