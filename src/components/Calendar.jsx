@@ -1,8 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from "react-router-dom";
+import {use ,useContext, useState } from 'react';
+import { UserContext } from '../Context/userContext';
+
+
 
 function Calendar() {
     const navigate = useNavigate();
+    const profileContext = useContext(UserContext);
+    const { Logged, profile } = profileContext;
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(null);
 
@@ -35,10 +40,13 @@ function Calendar() {
         return days;
     };
 
-    const EventButton = (action) => {
-        if (selectedDate) {
-        navigate(`/planes?action=${action}&date=${selectedDate.toISOString()}`);
+    const addEvent = () => {
+        if (selectedDate && Logged) {
+            
         }
+        else if (!Logged)(
+            navigate("/login")
+        )
     };
 
     const days = generateDays();
@@ -75,18 +83,11 @@ return (
     {selectedDate && (
         <div id="eventos" className="flex gap-2 mb-4 justify-center">
         <button
-            onClick={() => EventButton('add')}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors cursor-pointer" onClick={() => addEvent()}
         >
             Agregar evento
         </button>
 
-        <button
-            onClick={() => EventButton('remove')}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-        >
-            Quitar evento
-        </button>
         </div>
     )}
 

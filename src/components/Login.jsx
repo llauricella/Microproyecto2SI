@@ -62,15 +62,6 @@ function Login() {
 
     return (
         <div className="flex flex-col justify-self-center min-h-screen">
-<<<<<<< HEAD
-            <div className='bg-white m-5 rounded-md p-10 text-center text-3xl font-bold'>Log In</div>
-            <div className='flex flex-col justify-center gap-6 bg-white rounded-md p-10'>
-                <img src={logoImg} alt="Logo" className='border-2 rounded-lg'/>
-                <input className="p-1 border-2 rounded-md" type="text" placeholder='User'/>
-                <input className="p-1 border-2 rounded-md" type="Password" placeholder='Contraseña'/>
-                <button className='bg-black text-emerald-700 rounded-md p-2 cursor-pointer font-bold'>Iniciar Sección</button>
-                <a href="" className='text-center'>¿Olvidaste tu contraseña?</a>
-=======
             {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">{error}</div>}
             <div className='flex flex-col justify-self-center gap-6 bg-white rounded-xl p-10'>
                 <h1 className="flex justify-center text-3xl font-bold"> Iniciar sesión</h1>
@@ -86,7 +77,6 @@ function Login() {
                 </form>
                 <button className='bg-red-500 text-white rounded-md p-2 cursor-pointer mt-4' onClick={handleGoogleLogin}>Iniciar sesión Google</button>
                 <button className='bg-black text-white rounded-md p-2 cursor-pointer' onClick={() => navigate('/Register')}>Registrarse</button>
->>>>>>> d4893206b9622eeab61640b675b4f41c07c23b18
             </div>
         </div>
     )
