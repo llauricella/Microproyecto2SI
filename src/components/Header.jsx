@@ -52,6 +52,10 @@ function Header() {
                         <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/guias")}>Guías</li>
                         <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/informacion")}>Información</li>
                         <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/contacto")}>Contacto</li>
+                        {Logged && profile && profile.type == "admin" && (
+                            <>
+                            <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/contacto")}>Modificar usuarios</li>
+                            </>)}
                     </ul>
                 </div>
             </div>
