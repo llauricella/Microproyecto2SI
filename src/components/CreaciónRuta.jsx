@@ -1,11 +1,11 @@
-import './styles.css'
-import { getAuth } from "firebase/auth"
+import './styles.css';
+import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { app } from '../Credentials';
-import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { getFirestore, setDoc, doc, query, where, getDocs, collection } from "firebase/firestore";
 
-const db = getFirestore(app); 
+const db = getFirestore(app);
 const auth = getAuth(app);
 
 export default function CreaciónRuta() {
@@ -13,17 +13,29 @@ export default function CreaciónRuta() {
     const [destino, setDestino] = useState("");
     const [tipo, setTipo] = useState("");
     const [fecha, setFecha] = useState("");
+    const [guia, setGuia] = useState("");
+    const [guias, setGuias] = useState([]);
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchGuias = async () => {
+            try {
+                const querySnapshot = await getDocs(query(collection(db, "users"), where("type", "==", "guia")));
+                const guiasList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setGuias(guiasList);
+            } catch (error) {
+                console.error("Error al obtener los guías:", error.message);
+                setError("Ocurrió un error al obtener los guías.");
+            }
+        };
+
+        fetchGuias();
+    }, []);
 
     const handleCreateRoute = async (e) => {
         e.preventDefault();
         const today = new Date();
         const selectedDate = new Date(fecha);
-        
-        if (selectedDate <= today) {
-            setError("La fecha seleccionada no puede ser hoy ni días anteriores.");
-            return;
-        }
 
         if (!destino) {
             setError("Por favor selecciona un destino.");
@@ -35,18 +47,40 @@ export default function CreaciónRuta() {
             return;
         }
 
+        if (!guia) {
+            setError("Por favor selecciona un guía.");
+            return;
+        }
+
+        const selectedGuia = guias.find(g => g.id === guia);
+        if (!selectedGuia) {
+            setError("El guía seleccionado no es válido.");
+            return;
+        }
+
         try {
+            const rutasRef = collection(db, "routes");
+            const q = query(rutasRef, where("destino", "==", destino), where("fecha", "==", fecha));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                setError("Ya existe una ruta con el mismo destino y fecha.");
+                return;
+            }
+
             const newRouteRef = doc(db, "routes", `${destino}-${Date.now()}`);
             await setDoc(newRouteRef, {
                 destino: destino,
                 tipo: tipo,
                 fecha: fecha,
+                guia: selectedGuia.name,
                 createdAt: new Date()
             });
             setDestino("");
             setTipo("");
             setFecha("");
-            navigate("/"); 
+            setGuia("");
+            navigate("/");
         } catch (error) {
             console.error("Error al crear la ruta:", error.message);
             setError("Ocurrió un error al crear la ruta.");
@@ -60,10 +94,10 @@ export default function CreaciónRuta() {
                 {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">{error}</div>}
                 <form onSubmit={handleCreateRoute} className="flex flex-col">
                     <label className="mb-2 font-bold text-lg" htmlFor="destino">Destino</label>
-                    <select 
-                        value={destino} 
-                        onChange={(e) => setDestino(e.target.value)} 
-                        className="p-2 mb-4 border rounded" 
+                    <select
+                        value={destino}
+                        onChange={(e) => setDestino(e.target.value)}
+                        className="p-2 mb-4 border rounded"
                         id="destino"
                     >
                         <option value="">Selecciona un destino</option>
@@ -73,10 +107,10 @@ export default function CreaciónRuta() {
                         <option value="Pico Naiguatá">Pico Naiguatá</option>
                     </select>
                     <label className="mb-2 font-bold text-lg" htmlFor="tipo">Tipo</label>
-                    <select 
-                        value={tipo} 
-                        onChange={(e) => setTipo(e.target.value)} 
-                        className="p-2 mb-4 border rounded" 
+                    <select
+                        value={tipo}
+                        onChange={(e) => setTipo(e.target.value)}
+                        className="p-2 mb-4 border rounded"
                         id="tipo"
                     >
                         <option value="">Selecciona un tipo de actividad</option>
@@ -85,16 +119,30 @@ export default function CreaciónRuta() {
                         <option value="Acampada">Acampada</option>
                     </select>
                     <label className="mb-2 font-bold text-lg" htmlFor="fecha">Fecha</label>
-                    <input 
-                        value={fecha} 
-                        onChange={(e) => setFecha(e.target.value)} 
-                        className="p-2 mb-4 border rounded" 
-                        type="date" 
-                        id="fecha" 
+                    <input
+                        value={fecha}
+                        onChange={(e) => setFecha(e.target.value)}
+                        className="p-2 mb-4 border rounded"
+                        type="date"
+                        id="fecha"
                     />
+                    <label className="mb-2 font-bold text-lg" htmlFor="guia">Guía</label>
+                    <select
+                        value={guia}
+                        onChange={(e) => setGuia(e.target.value)}
+                        className="p-2 mb-4 border rounded"
+                        id="guia"
+                    >
+                        <option value="">Selecciona un guía</option>
+                        {guias.map(guia => (
+                            <option key={guia.id} value={guia.id}>
+                                {guia.name}
+                            </option>
+                        ))}
+                    </select>
                     <button className="bg-amber-600 text-white p-2 rounded-lg shadow-lg" type="submit">Crear Ruta</button>
                 </form>
             </div>
         </div>
-    )
+    );
 }

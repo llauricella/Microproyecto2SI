@@ -14,6 +14,7 @@ import Contacto from "./components/Contacto";
 import CreaciónRuta from "./components/CreaciónRuta";
 import ModificarUsuarios from "./components/ModificarUsuarios";
 import Conócenos from "./components/Conocenos";
+import Paypal from "./components/Paypal";
 
 function App() {
   const profileContext = useContext(UserContext);
@@ -36,6 +37,7 @@ function App() {
           <Route path="/contacto" element={<Contacto/>} />
           <Route path="/crearutas" element={Logged && profile && profile.type == "admin" ? <CreaciónRuta /> : <Login />} />
           <Route path="/modificarusuarios" element={Logged && profile && profile.type == "admin" ? <ModificarUsuarios /> : <Login />} />
+          <Route path="/paypal" element={Logged ? <Paypal /> : <Login />} />
         </Routes>
       </div>
     </Router>
