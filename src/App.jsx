@@ -8,12 +8,12 @@ import Rutas from "./components/Rutas";
 import Calendar from "./components/Calendar";
 import Agenda from "./components/Agenda";
 import Register from "./components/Register";
-import Guias from "./components/Guias";
 import Información from "./components/Información";
 import Perfil from "./components/Perfil";
 import Contacto from "./components/Contacto";
 import CreaciónRuta from "./components/CreaciónRuta";
 import ModificarUsuarios from "./components/ModificarUsuarios";
+import Conócenos from "./components/Conocenos";
 
 function App() {
   const profileContext = useContext(UserContext);
@@ -30,7 +30,7 @@ function App() {
           <Route path="/agenda" element={Logged ? <Calendar /> : <Login />} />
           <Route path="/planes" element={Logged ? <Agenda /> : <Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/guias" element={<Guias />} />
+          <Route path="/conocenos" element={<Conócenos />} />
           <Route path="/informacion" element={<Información/>} />
           <Route path="/perfil" element={<Perfil/>} />
           <Route path="/contacto" element={<Contacto/>} />
