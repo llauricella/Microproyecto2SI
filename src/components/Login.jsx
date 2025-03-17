@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopu
 import { useState } from 'react';
 import { app } from '../Credentials';
 import { getFirestore, setDoc, doc } from "firebase/firestore"; // Asegúrate de importar estas funciones
+
 const db = getFirestore(app); 
 const auth = getAuth(app);
 
@@ -51,7 +52,8 @@ function Login() {
                 name: user.displayName,
                 email: user.email,
                 uid: user.uid,
-                fechaCreacion: new Date()
+                fechaCreacion: new Date(),
+                type: 'cliente' // Establecer el tipo de usuario como 'cliente'
             });
             navigate("/");
         } catch (error) {

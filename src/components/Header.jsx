@@ -52,7 +52,13 @@ function Header() {
                         <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/guias")}>Guías</li>
                         <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/informacion")}>Información</li>
                         <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/contacto")}>Contacto</li>
-                        <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/crearutas")}>CreaciónRuta</li>
+                        {Logged && profile && profile.type == "admin" && (
+                            <>
+                            <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/modificarusuarios")}>Modificar usuarios</li>
+                            <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/crearutas")}>Crear Rutas</li>
+                            </>
+                        )}
+                            
                     </ul>
                 </div>
             </div>
