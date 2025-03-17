@@ -4,7 +4,7 @@ import { app } from '../Credentials';
 import { getDoc, getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const UserContext = createContext(null);
-d
+
 const auth = getAuth(app);
 const db = getFirestore(app);
 
