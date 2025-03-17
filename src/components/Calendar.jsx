@@ -1,6 +1,6 @@
 import { useNavigate} from "react-router-dom";
 import {use ,useContext, useState } from 'react';
-import { UserContext } from "../Context/UserContext";
+import { UserContext } from "../Context/userContext";
 
 
 
