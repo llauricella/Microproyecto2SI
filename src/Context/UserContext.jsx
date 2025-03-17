@@ -12,6 +12,7 @@ const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState({});
     const [Logged, setLogged] = useState(false);
+    const [type, setType] = useState('cliente');
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (userConnected) => {
@@ -24,7 +25,9 @@ const UserProvider = ({ children }) => {
                         console.log("No such document!");
                         setProfile({});
                     } else {
-                        setProfile(docSnap.data());
+                        const userData = docSnap.data();
+                        setProfile(userData);
+                        setType(userData.type || 'cliente');
                         setLogged(true);
                     }
                 } catch (error) {
@@ -44,8 +47,8 @@ const UserProvider = ({ children }) => {
         if (user) {
             const userDocRef = doc(db, "users", user.uid);
             try {
-                await setDoc(userDocRef, newProfile, { merge: true });
-                setProfile(newProfile);
+                await setDoc(userDocRef, { ...newProfile, type: newProfile.type || type }, { merge: true });
+                setProfile({ ...newProfile, type: newProfile.type || type });
                 console.log("Perfil actualizado correctamente");
             } catch (error) {
                 console.error("Error al actualizar el perfil:", error);
@@ -56,7 +59,7 @@ const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, profile, setProfile, Logged, updateProfile }}>
+        <UserContext.Provider value={{ user, setUser, profile, setProfile, Logged, updateProfile, type, setType }}>
             {children}
         </UserContext.Provider>
     );

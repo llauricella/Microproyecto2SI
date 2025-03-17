@@ -1,7 +1,7 @@
 import './styles.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react';
-import { UserContext } from "../Context/UserContext";
+import { UserContext } from "../Context/userContext";
 import { app } from '../Credentials';
 import { getAuth, signOut } from 'firebase/auth';
 import flechaMenu from '../assets/flechaMenu.png';

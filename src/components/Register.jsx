@@ -1,10 +1,11 @@
 import logoImg from '../assets/logo.png'; 
 import './styles.css'
-import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth"
-import { useNavigate} from "react-router-dom";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { app } from '../Credentials';
-import { getFirestore, setDoc, doc } from "firebase/firestore"; // Asegúrate de importar estas funciones
+import { getFirestore, setDoc, doc } from "firebase/firestore"; 
+
 const db = getFirestore(app); 
 const auth = getAuth(app);
 
@@ -14,7 +15,7 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
+    
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
@@ -24,7 +25,8 @@ export default function Register() {
                 name: name,
                 email: email,
                 uid: nombreRegistrado.user.uid,
-                fechaCreacion: new Date()
+                fechaCreacion: new Date(),
+                type: 'cliente'
             });
             setName("");
             setEmail("");
@@ -65,7 +67,7 @@ export default function Register() {
                     Contraseña
                     <input value={password} onChange={(e) => setPassword(e.target.value)} className="p-4 border rounded" type="Password" placeholder='Introduce tu contraseña'/>
                     <br></br>
-                    <button className='bg-black text-white rounded-md p-2 cursor-pointer' type = "submit" onClick={SubmitEvent}>Registrarse </button>
+                    <button className='bg-black text-white rounded-md p-2 cursor-pointer' type="submit">Registrarse</button>
                 </form>
             </div>
         </div>
