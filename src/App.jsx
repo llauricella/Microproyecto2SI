@@ -11,6 +11,7 @@ import Guias from "./components/Guias"
 import Información from "./components/Información";
 import Perfil from "./components/Perfil";
 import Contacto from "./components/Contacto";
+import CreaciónRuta from "./components/CreaciónRuta";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/informacion" element={<Información/>} />
         <Route path="/perfil" element={<Perfil/>} />
         <Route path="/contacto" element={<Contacto/>} />
+        <Route path="/crearutas" element={<CreaciónRuta/>} />
         </Routes>
   </div>
   </Router>
