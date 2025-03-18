@@ -50,7 +50,6 @@ function Login() {
             const user = result.user;
             console.log("Usuario registrado con Google:", user);
 
-            // Crear un nuevo usuario en Firestore
             await setDoc(doc(db, "users", user.uid), {
                 name: user.displayName,
                 email: user.email,
@@ -74,7 +73,6 @@ function Login() {
             const user = result.user;
             console.log("Usuario autenticado con Google:", user);
 
-            // Verificar si el usuario ya existe en Firestore
             const userDoc = await getDoc(doc(db, "users", user.uid));
             if (!userDoc.exists()) {
                 setError("No se encontró una cuenta asociada a este correo. Por favor, regístrate primero.");
