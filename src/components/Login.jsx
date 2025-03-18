@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useState } from 'react';
 import { app } from '../Credentials';
-import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 
 const db = getFirestore(app); 
 const auth = getAuth(app);
@@ -43,12 +43,14 @@ function Login() {
         }
     };
 
-    const handleGoogleLogin = async () => {
+    const handleGoogleRegister = async () => {
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             console.log("Usuario registrado con Google:", user);
+
+            // Crear un nuevo usuario en Firestore
             await setDoc(doc(db, "users", user.uid), {
                 name: user.displayName,
                 email: user.email,
@@ -56,11 +58,34 @@ function Login() {
                 fechaCreacion: new Date(),
                 type: 'cliente'
             });
+
             setError(""); 
             navigate("/"); 
         } catch (error) {
             console.error("Error al registrar con Google:", error.message);
             setError(`Ocurrió un error al registrar con Google: ${error.message}`);
+        }
+    };
+
+    const handleGoogleLogin = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            console.log("Usuario autenticado con Google:", user);
+
+            // Verificar si el usuario ya existe en Firestore
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (!userDoc.exists()) {
+                setError("No se encontró una cuenta asociada a este correo. Por favor, regístrate primero.");
+                return;
+            }
+
+            setError(""); 
+            navigate("/"); 
+        } catch (error) {
+            console.error("Error al iniciar sesión con Google:", error.message);
+            setError(`Ocurrió un error al iniciar sesión con Google: ${error.message}`);
         }
     };
 
@@ -79,7 +104,8 @@ function Login() {
                     <br></br>
                     <button className='bg-black text-white rounded-md p-2 cursor-pointer' type="submit">Iniciar sesión</button>
                 </form>
-                <button className='bg-red-500 text-white rounded-md p-2 cursor-pointer mt-4' onClick={handleGoogleLogin}>Iniciar sesión Google</button>
+                <button className='bg-blue-500 text-white rounded-md p-2 cursor-pointer mt-2' onClick={handleGoogleLogin}>Iniciar sesión con Google</button>
+                <button className='bg-red-500 text-white rounded-md p-2 cursor-pointer mt-2' onClick={handleGoogleRegister}>Registrarse con Google</button>
                 <button className='bg-black text-white rounded-md p-2 cursor-pointer' onClick={() => navigate('/Register')}>Registrarse</button>
             </div>
         </div>
