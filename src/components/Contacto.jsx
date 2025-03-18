@@ -1,6 +1,6 @@
-import './styles.css'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import ubicacionMetro from '../assets/ubicacionMetro.jpg';
+import './styles.css';
 
 export default function Contacto() {
     const [showForm, setShowForm] = useState(false);

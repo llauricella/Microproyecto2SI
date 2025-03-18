@@ -1,9 +1,9 @@
+import { getAuth } from "firebase/auth";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useContext, useState, useEffect } from 'react';
 import { UserContext } from "../Context/userContext";
 import { app } from '../Credentials';
-import { getAuth } from "firebase/auth";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const db = getFirestore(app);
 const auth = getAuth(app);
@@ -66,7 +66,7 @@ function Calendar() {
 
     const addEvent = () => {
         if (selectedDate && Logged) {
-            navigate("/paypal")
+            navigate("/paypal", { state: { selectedDate, selectedRoute } }); // Pasa datos a PayPal
         } else if (!Logged) navigate("/login");
     };
 
