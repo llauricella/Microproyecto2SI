@@ -18,6 +18,14 @@ function Calendar() {
     const [searchParams] = useSearchParams();
     const routeParam = searchParams.get("route");
     const decodedRouteParam = decodeURIComponent(routeParam);
+    const priceParam = searchParams.get("price");
+    const decodedPriceParam = decodeURIComponent(priceParam);
+    const diffParam = searchParams.get("diff");
+    const decodedDiffParam = decodeURIComponent(diffParam);
+    const descriptionParam = searchParams.get("description");
+    const decodedDescriptionParam = decodeURIComponent(descriptionParam);
+    const imageUrlParam = searchParams.get("imageURL");
+    const decodedImageUrlParam = decodeURIComponent(imageUrlParam);
     const [rutas, setRutas] = useState([]);
 
     useEffect(() => {
@@ -64,11 +72,6 @@ function Calendar() {
         return days;
     }
 
-    const addEvent = () => {
-        if (selectedDate && Logged) {
-            navigate("/paypal", { state: { selectedDate, selectedRoute } }); // Pasa datos a PayPal
-        } else if (!Logged) navigate("/login");
-    };
 
     const days = generateDays();
 
@@ -99,6 +102,29 @@ function Calendar() {
     const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
     const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
 
+    const handlePagarConPaypal = () => {
+        if (Logged) {
+            const precio = parseFloat(decodedPriceParam); 
+        if (isNaN(precio)) {
+            console.error("El precio no es un número válido:", decodedPriceParam);
+            return;
+        }
+          navigate("/paypal", {
+            state: {
+              selectedRoute: {
+                destino: decodedRouteParam,
+                precio: precio, 
+                dificultad: decodedDiffParam,
+                descripcion: decodedDescriptionParam,
+                imagen: decodedImageUrlParam,
+              },
+            },
+          });
+        } else {
+          navigate("/login");
+        }
+      };
+
     return (
         <div className="p-4 max-w-md mx-auto bg-white rounded-lg shadow-md">
             <div id="Encabezado" className="flex justify-between items-center mb-4">
@@ -123,7 +149,7 @@ function Calendar() {
 
                     <button
                         className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors cursor-pointer"
-                        onClick={() => addEvent()}
+                        onClick={() => handlePagarConPaypal()}
                     >
                         Confirmar evento
                     </button>

@@ -7,29 +7,7 @@ function Planes({ title, diff, price, description, imageUrl }) {
   const profileContext = useContext(UserContext);
   const { Logged, profile } = profileContext;
 
-  const handlePagarConPaypal = () => {
-    if (Logged) {
-      const precio = parseFloat(price); // Convierte price a número
-      if (isNaN(precio)) {
-        console.error("El precio no es un número válido:", price);
-        return;
-      }
-
-      navigate("/paypal", {
-        state: {
-          selectedRoute: {
-            destino: title,
-            precio: precio, // Asegúrate de que price sea un número
-            dificultad: diff,
-            descripcion: description,
-            imagen: imageUrl,
-          },
-        },
-      });
-    } else {
-      navigate("/login");
-    }
-  };
+  
 
   return (
     <div className="mx-auto p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 h-full">
@@ -55,7 +33,7 @@ function Planes({ title, diff, price, description, imageUrl }) {
 
           <button
             className="w-full py-3 bg-amber-400 hover:bg-amber-500 text-gray-800 font-bold rounded-lg transition-colors duration-200 transform hover:scale-[1.02]"
-            onClick={handlePagarConPaypal}
+            onClick={() => Logged ? navigate(`/agenda?route=${encodeURIComponent(title)}&price=${encodeURIComponent(price)}&diff=${encodeURIComponent(diff)}&description=${encodeURIComponent(description)}&imageURL=${encodeURIComponent(imageUrl)}`) : navigate("/login")}
           >
             Pagar con PayPal
           </button>
