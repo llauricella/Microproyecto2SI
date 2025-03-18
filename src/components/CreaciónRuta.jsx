@@ -74,7 +74,8 @@ export default function CreaciónRuta() {
                 tipo: tipo,
                 fecha: fecha,
                 guia: selectedGuia.name,
-                createdAt: new Date()
+                createdAt: new Date(),
+                estudiantesSuscritos: false 
             });
             setDestino("");
             setTipo("");

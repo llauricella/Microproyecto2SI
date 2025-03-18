@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useState } from 'react';
 import { app } from '../Credentials';
-import { getFirestore, setDoc, doc } from "firebase/firestore"; // Asegúrate de importar estas funciones
+import { getFirestore, setDoc, doc } from "firebase/firestore";
 
 const db = getFirestore(app); 
 const auth = getAuth(app);
@@ -16,13 +16,14 @@ function Login() {
     const [error, setError] = useState("");
     
     const handleLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); 
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
             console.log("Sesión iniciada:", user.user);
             setEmail("");
             setPassword("");
-            navigate("/");
+            setError(""); 
+            navigate("/"); 
         } catch (error) {
             console.error("Error al iniciar sesión:", error.message);
             switch (error.code) {
@@ -53,9 +54,10 @@ function Login() {
                 email: user.email,
                 uid: user.uid,
                 fechaCreacion: new Date(),
-                type: 'cliente' // Establecer el tipo de usuario como 'cliente'
+                type: 'cliente'
             });
-            navigate("/");
+            setError(""); 
+            navigate("/"); 
         } catch (error) {
             console.error("Error al registrar con Google:", error.message);
             setError(`Ocurrió un error al registrar con Google: ${error.message}`);

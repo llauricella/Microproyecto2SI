@@ -16,6 +16,8 @@ import Principal from "./components/Principal";
 import Register from "./components/Register";
 import Rutas from "./components/Rutas";
 import TransaccionExitosa from "./components/TransaccionExitosa";
+import RutasActivas from './components/RutasActivas';
+import RutasAsignadas from './components/RutasAsignadas';
 
 function App() {
   const profileContext = useContext(UserContext);
@@ -40,6 +42,8 @@ function App() {
           <Route path="/modificarusuarios" element={Logged && profile && profile.type == "admin" ? <ModificarUsuarios /> : <Login />} />
           <Route path="/paypal" element={Logged ? <Paypal /> : <Login />} />
           <Route path="/exitosa" element={Logged ? <TransaccionExitosa /> : <Login />} />
+          <Route path="/RutasActivas" element={<RutasActivas />} />
+          <Route path="/RutasAsignadas" element={<RutasAsignadas />} />
         </Routes>
       </div>
     </Router>

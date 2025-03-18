@@ -11,7 +11,6 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
   };
 
   const createOrder = (data, actions) => {
-    
     if (typeof selectedRoute.precio !== "number" || isNaN(selectedRoute.precio)) {
       console.error("El precio no es un número válido:", selectedRoute.precio);
       return;
@@ -22,20 +21,20 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
       purchase_units: [
         {
           amount: {
-            currency: "USD",
+            currency_code: "USD",
             value: selectedRoute.precio.toString(), 
           },
+          description: `Ruta: ${selectedRoute.destino}, Tipo: ${selectedRoute.tipo}, Guía: ${selectedRoute.guia}`
         },
       ],
     });
   };
 
-  const OnApprove = (data, actions) => {
+  const onApprove = (data, actions) => {
     return actions.order.capture().then(function (details) {
       const name = details.payer.name.given_name;
       alert("Transacción completada por " + name);
 
-      
       navigate('/exitosa', {
         state: {
           transactionDetails: details,
@@ -47,7 +46,7 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
 
   return (
     <PayPalScriptProvider options={initialOptions}>
-      <PayPalButtons createOrder={createOrder} onApprove={OnApprove} />
+      <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
     </PayPalScriptProvider>
   );
 };
@@ -85,7 +84,13 @@ export default function Paypal() {
             <span className="font-semibold">Ruta:</span> {selectedRoute.destino}
           </p>
           <p className="text-lg text-gray-700">
+            <span className="font-semibold">Tipo:</span> {selectedRoute.tipo}
+          </p>
+          <p className="text-lg text-gray-700">
             <span className="font-semibold">Precio:</span> ${selectedRoute.precio}
+          </p>
+          <p className="text-lg text-gray-700">
+            <span className="font-semibold">Guía:</span> {selectedRoute.guia}
           </p>
         </div>
 

@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 export default function TransaccionExitosa() {
   const location = useLocation();
-  const { transactionDetails, selectedRoute } = location.state || {};
+  const { transactionDetails, selectedRoute, userName } = location.state || {};
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -17,10 +17,13 @@ export default function TransaccionExitosa() {
         {transactionDetails && (
           <div className="space-y-4 text-left">
             <p className="text-lg text-gray-700">
-              <span className="font-semibold">Nombre:</span> {transactionDetails.payer.name.given_name}
+              <span className="font-semibold">Ruta:</span> {selectedRoute?.destino}
             </p>
             <p className="text-lg text-gray-700">
-              <span className="font-semibold">Ruta:</span> {selectedRoute?.destino}
+              <span className="font-semibold">Tipo:</span> {selectedRoute?.tipo}
+            </p>
+            <p className="text-lg text-gray-700">
+              <span className="font-semibold">Guía:</span> {selectedRoute?.guia}
             </p>
             <p className="text-lg text-gray-700">
               <span className="font-semibold">Precio:</span> ${selectedRoute?.precio}
@@ -30,7 +33,7 @@ export default function TransaccionExitosa() {
 
         <button
           className="mt-6 px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors"
-          onClick={() => window.location.href = "/"} // Redirige a la página principal
+          onClick={() => window.location.href = "/"}
         >
           Volver al inicio
         </button>
