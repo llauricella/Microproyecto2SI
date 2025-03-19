@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { app } from '../Credentials';
-import { getFirestore, setDoc, doc, query, where, getDocs, collection, updateDoc } from "firebase/firestore"; // Importa updateDoc
+import { getFirestore, setDoc, doc, query, where, getDocs, collection, updateDoc } from "firebase/firestore";
 
 const db = getFirestore(app);
 const auth = getAuth(app);
