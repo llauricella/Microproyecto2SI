@@ -2,7 +2,6 @@ import './styles.css';
 import React from 'react';
 import InformacionCard from './InformacionCard';
 import { useNavigate, useLocation } from "react-router-dom";
-import Galeria from './Galeria';
 
 export default function Información() {
     const navigate = useNavigate();

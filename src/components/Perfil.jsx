@@ -1,6 +1,6 @@
 import './styles.css';
 import React, { useContext, useState, useEffect } from 'react';
-import { UserContext } from '../Context/userContext';
+import { UserContext } from '../Context/UserContext';
 
 export default function Perfil() {
     const { profile, updateProfile } = useContext(UserContext);

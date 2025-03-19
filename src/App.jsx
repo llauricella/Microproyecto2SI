@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { UserContext } from './Context/userContext';
+import { UserContext } from './Context/UserContext';
 import Agenda from "./components/Agenda";
 import Calendar from "./components/Calendar";
 import Conócenos from "./components/Conocenos";
