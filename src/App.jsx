@@ -20,6 +20,7 @@ import RutasActivas from './components/RutasActivas';
 import RutasAsignadas from './components/RutasAsignadas';
 import Galeria from './components/Galeria';
 import RutasReservadas from './components/RutasReservadas';
+import Foro from './components/Foro'
 
 function App() {
   const profileContext = useContext(UserContext);
@@ -48,6 +49,7 @@ function App() {
           <Route path="/RutasAsignadas" element={<RutasAsignadas />} />
           <Route path="/galeria" element={<Galeria/>}></Route>
           <Route path="/rutasreservadas" element={<RutasReservadas />} />
+          <Route path="/foro" element={<Foro />}></Route>
         </Routes>
       </div>
     </Router>
