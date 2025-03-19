@@ -71,7 +71,7 @@ export default function Paypal() {
       </div>
     );
   }
-
+  console.log(selectedRoute)
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">

@@ -111,12 +111,14 @@ function Calendar() {
         }
           navigate("/paypal", {
             state: {
-              selectedRoute: {
+                selectedRoute: {
                 destino: decodedRouteParam,
                 precio: precio, 
                 dificultad: decodedDiffParam,
                 descripcion: decodedDescriptionParam,
                 imagen: decodedImageUrlParam,
+                tipo: selectedRoute.tipo,
+                guia: selectedRoute.guia,
               },
             },
           });
