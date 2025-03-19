@@ -3,7 +3,7 @@ import Login from './Login';
 import logoImg from '../assets/logo.png'; 
 import { useNavigate} from "react-router-dom";
 import {use ,useContext } from 'react';
-import { UserContext } from "../Context/userContext";
+import { UserContext } from "../Context/UserContext";
 
 
 function Principal({ onNavigate }) {

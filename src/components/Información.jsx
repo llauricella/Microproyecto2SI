@@ -1,7 +1,7 @@
+import "/styles.css"
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import InformacionCard from './InformacionCard';
-import './styles.css';
 
 export default function Información() {
     const navigate = useNavigate();

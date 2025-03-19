@@ -2,7 +2,7 @@ import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore, getDoc, doc } from "firebase/firestore";
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { UserContext } from "../Context/userContext";
+import { UserContext } from "../Context/UserContext";
 import { app } from '../Credentials';
 
 const db = getFirestore(app);

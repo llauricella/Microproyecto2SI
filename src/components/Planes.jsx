@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../Context/userContext';
+import { UserContext } from '../Context/UserContext';
 
 function Planes({ title, diff, price, description, imageUrl }) {
   const navigate = useNavigate();
