@@ -1,11 +1,11 @@
-import './styles.css';
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import InformacionCard from './InformacionCard';
-import { useNavigate, useLocation } from "react-router-dom";
-import Galeria from './Galeria';
+import './styles.css';
 
 export default function Información() {
     const navigate = useNavigate();
+
     return (
         <div className="p-4">
             <h1 className="mx-auto w-1/4 text-center rounded-lg block bg-white text-3xl font-bold border-black border-4 mb-8">
@@ -30,9 +30,22 @@ export default function Información() {
                     ]}
                 />
             </div>
-            <button className="mx-auto w-1/4 text-center col-span-1 rounded-lg block bg-amber-600 text-3xl border-6 border-orange-300 mb-8 mt-10 cursor-pointer font-bold " onClick={() => navigate('/galeria')}>
-                Galería
-            </button>
+
+            {/* Contenedor para los botones */}
+            <div className="flex justify-center gap-4 mt-10">
+                <button
+                    className="w-1/4 text-center rounded-lg bg-amber-600 text-3xl border-6 border-orange-300 mb-8 cursor-pointer font-bold"
+                    onClick={() => navigate('/galeria')}
+                >
+                    Galería
+                </button>
+                <button
+                    className="w-1/4 text-center rounded-lg bg-amber-600 text-3xl border-6 border-orange-300 mb-8 cursor-pointer font-bold"
+                    onClick={() => navigate('/foro')} // Cambiado a '/foro'
+                >
+                    Foro
+                </button>
+            </div>
         </div>
     );
 }
