@@ -1,8 +1,11 @@
 import './styles.css';
 import React from 'react';
 import InformacionCard from './InformacionCard';
+import { useNavigate, useLocation } from "react-router-dom";
+import Galeria from './Galeria';
 
 export default function Información() {
+    const navigate = useNavigate();
     return (
         <div className="p-4">
             <h1 className="mx-auto w-1/4 text-center rounded-lg block bg-white text-3xl font-bold border-black border-4 mb-8">
@@ -27,9 +30,9 @@ export default function Información() {
                     ]}
                 />
             </div>
-            <h1 className="mx-auto w-1/4 text-center col-span-1 rounded-lg block bg-amber-600 text-3xl border-6 border-orange-300 mb-8 mt-10 cursor-pointer font-bold ">
+            <button className="mx-auto w-1/4 text-center col-span-1 rounded-lg block bg-amber-600 text-3xl border-6 border-orange-300 mb-8 mt-10 cursor-pointer font-bold " onClick={() => navigate('/galeria')}>
                 Galería
-            </h1>
+            </button>
         </div>
     );
 }
