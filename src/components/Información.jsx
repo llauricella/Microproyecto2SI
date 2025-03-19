@@ -2,7 +2,6 @@ import "/styles.css"
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import InformacionCard from './InformacionCard';
-import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Información() {
     const navigate = useNavigate();
