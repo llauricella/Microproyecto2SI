@@ -1,7 +1,7 @@
 import './styles.css'
 import React from 'react'
-import SabasNieves from '../assets/SabasNieves.jpg';
-import Unimet from '../assets/Unimet.jpg';
+import SabasNieves from '../assets/sabasnieves.jpg';
+import Unimet from '../assets/unimet.jpg';
 
 export default function Conócenos() {
     return (

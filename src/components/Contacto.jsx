@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ubicacionMetro from '../assets/ubicacionMetro.jpg';
+import ubicacionMetro from '../assets/ubicacionmetro.jpg';
 import './styles.css';
 
 export default function Contacto() {

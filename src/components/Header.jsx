@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { UserContext } from "../Context/UserContext";
 import { app } from '../Credentials';
 import { getAuth, signOut } from 'firebase/auth';
-import flechaMenu from '../assets/flechaMenu.png';
+import flechaMenu from '../assets/flechamenu.png';
 
 const auth = getAuth(app);
 
