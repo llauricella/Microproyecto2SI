@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { app } from '../Credentials';
-import { getFirestore, setDoc, doc, query, where, getDocs, collection } from "firebase/firestore";
+import { getFirestore, setDoc, doc, query, where, getDocs, collection, updateDoc } from "firebase/firestore"; // Importa updateDoc
 
 const db = getFirestore(app);
 const auth = getAuth(app);
@@ -85,6 +85,19 @@ export default function CreaciónRuta() {
         } catch (error) {
             console.error("Error al crear la ruta:", error.message);
             setError("Ocurrió un error al crear la ruta.");
+        }
+    };
+
+    const handleReserveRoute = async (routeId) => {
+        try {
+            const routeRef = doc(db, "routes", routeId); 
+            await updateDoc(routeRef, {
+                estudiantesSuscritos: true, 
+            });
+            console.log("Ruta reservada exitosamente.");
+        } catch (error) {
+            console.error("Error al reservar la ruta:", error.message);
+            setError("Ocurrió un error al reservar la ruta.");
         }
     };
 

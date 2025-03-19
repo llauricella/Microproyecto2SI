@@ -102,53 +102,57 @@ function Calendar() {
     const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
     const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
 
-    const handlePagarConPaypal = () => {
+    const handlePagarConPaypal = async () => {
         if (Logged) {
-            const user = auth.currentUser;
-
-            if (!user) {
-                console.error("No se encontró un usuario autenticado.");
-                return;
-            }
-
-            if (!selectedRoute) {
-                alert("Por favor, selecciona una ruta antes de continuar.");
-                return;
-            }
-
-            const fetchUserType = async () => {
-                try {
-                    const userDoc = await getDoc(doc(db, "users", user.uid));
-                    if (userDoc.exists()) {
-                        const userData = userDoc.data();
-                        if (userData.type !== "cliente") {
-                            alert("Solo los clientes pueden reservar rutas.");
-                            return;
-                        }
-
-                        navigate("/paypal", {
-                            state: {
-                                selectedRoute: {
-                                    destino: selectedRoute.destino,
-                                    precio: selectedRoute.precio,
-                                    tipo: selectedRoute.tipo,
-                                    guia: selectedRoute.guia,
-                                    descripcion: selectedRoute.descripcion,
-                                    dificultad: selectedRoute.dificultad,
-                                    imagen: selectedRoute.imagen,
-                                    fecha: selectedRoute.fecha,
-                                },
-                            },
-                        });
-                    } else {
-                        console.error("No se encontró el documento del usuario.");
-                    }
-                } catch (error) {
-                    console.error("Error al verificar el tipo de usuario:", error.message);
+            try {
+                const user = auth.currentUser;
+                if (!user) {
+                    console.error("No se encontró un usuario autenticado.");
+                    navigate("/login");
+                    return;
                 }
-            };
 
-            fetchUserType();
+                const userRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userRef);
+
+                if (!userDoc.exists()) {
+                    console.error("No se encontró información del usuario.");
+                    navigate("/login");
+                    return;
+                }
+
+                const userData = userDoc.data();
+
+                if (userData.type !== "cliente") {
+                    console.error("Solo los clientes pueden reservar rutas.");
+                    alert("No tienes permiso para reservar rutas. Por favor, inicia sesión como cliente.");
+                    return;
+                }
+
+                // Continuar con la reserva si el usuario es un cliente
+                const precio = parseFloat(decodedPriceParam);
+                if (isNaN(precio)) {
+                    console.error("El precio no es un número válido:", decodedPriceParam);
+                    return;
+                }
+
+                navigate("/paypal", {
+                    state: {
+                        selectedRoute: {
+                            destino: decodedRouteParam,
+                            precio: precio,
+                            dificultad: decodedDiffParam,
+                            descripcion: decodedDescriptionParam,
+                            imagen: decodedImageUrlParam,
+                            tipo: selectedRoute.tipo,
+                            guia: selectedRoute.guia,
+                        },
+                    },
+                });
+            } catch (error) {
+                console.error("Error al verificar el rol del usuario:", error.message);
+                alert("Ocurrió un error al verificar tu rol. Intenta nuevamente.");
+            }
         } else {
             navigate("/login");
         }

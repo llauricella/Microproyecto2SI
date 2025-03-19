@@ -64,6 +64,11 @@ function Header() {
                                 <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/RutasAsignadas")}>Rutas asignadas</li>
                             </>
                         )}
+                        {Logged && profile && profile.type == "cliente" && (
+                            <>
+                                <li className='p-2 hover:bg-gray-100 cursor-pointer' onClick={() => navigate("/rutasreservadas")}>Rutas reservadas</li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>

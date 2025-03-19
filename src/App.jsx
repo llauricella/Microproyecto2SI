@@ -19,6 +19,7 @@ import TransaccionExitosa from "./components/TransaccionExitosa";
 import RutasActivas from './components/RutasActivas';
 import RutasAsignadas from './components/RutasAsignadas';
 import Galeria from './components/Galeria';
+import RutasReservadas from './components/RutasReservadas';
 
 function App() {
   const profileContext = useContext(UserContext);
@@ -46,6 +47,7 @@ function App() {
           <Route path="/RutasActivas" element={<RutasActivas />} />
           <Route path="/RutasAsignadas" element={<RutasAsignadas />} />
           <Route path="/galeria" element={<Galeria/>}></Route>
+          <Route path="/rutasreservadas" element={<RutasReservadas />} />
         </Routes>
       </div>
     </Router>

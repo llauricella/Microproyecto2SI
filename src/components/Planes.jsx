@@ -32,10 +32,10 @@ function Planes({ title, diff, price, description, imageUrl }) {
           <p className="text-gray-600 leading-relaxed text-justify">{description}</p>
 
           <button
-            className="w-full py-3 bg-amber-400 hover:bg-amber-500 text-gray-800 font-bold rounded-lg transition-colors duration-200 transform hover:scale-[1.02]"
+            className="w-full py-3 bg-amber-400 hover:bg-amber-500 text-gray-800 font-bold rounded-lg transition-colors duration-200 transform hover:scale-[1.02] cursor-pointer"
             onClick={() => Logged ? navigate(`/agenda?route=${encodeURIComponent(title)}&price=${encodeURIComponent(price)}&diff=${encodeURIComponent(diff)}&description=${encodeURIComponent(description)}&imageURL=${encodeURIComponent(imageUrl)}`) : navigate("/login")}
           >
-            Pagar con PayPal
+            Ver disponibilidad
           </button>
         </div>
       </div>
