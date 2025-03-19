@@ -146,6 +146,7 @@ function Calendar() {
                             imagen: decodedImageUrlParam,
                             tipo: selectedRoute.tipo,
                             guia: selectedRoute.guia,
+                            id: selectedRoute.id,
                         },
                     },
                 });

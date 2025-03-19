@@ -1,11 +1,15 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { doc, updateDoc, getFirestore } from "firebase/firestore";
+import { app } from '../Credentials';
+
+const db = getFirestore(app);
 
 const PaypalButtonComponent = ({ selectedRoute }) => {
   const navigate = useNavigate();
 
   const initialOptions = {
-    "client-id": "AZBpRrAZEgCXMTTBCuUi2LwRQ8v0I2cSbJ9XegxTEIXEpiozfNYictP1x-lTALtS7QreGSzLZ2_lm7RL", 
+    "client-id": "AZBpRrAZEgCXMTTBCuUi2LwRQ8v0I2cSbJ9XegxTEIXEpiozfNYictP1x-lTALtS7QreGSzLZ2_lm7RL",
     currency: "USD",
     intent: "capture",
   };
@@ -16,13 +20,14 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
       return;
     }
 
-    console.log("Creando orden con precio:", selectedRoute.precio); 
+    console.log("Creando orden con precio:", selectedRoute.precio);
+    console.log("Datos de la ruta:", selectedRoute.id);
     return actions.order.create({
       purchase_units: [
         {
           amount: {
             currency_code: "USD",
-            value: selectedRoute.precio.toString(), 
+            value: selectedRoute.precio.toString(),
           },
           description: `Ruta: ${selectedRoute.destino}, Tipo: ${selectedRoute.tipo}, Guía: ${selectedRoute.guia}`
         },
@@ -30,10 +35,20 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
     });
   };
 
-  const onApprove = (data, actions) => {
-    return actions.order.capture().then(function (details) {
+  const onApprove = async (data, actions) => {
+    return actions.order.capture().then(async function (details) {
       const name = details.payer.name.given_name;
       alert("Transacción completada por " + name);
+
+      try {
+        const routeRef = doc(db, "routes", selectedRoute.id);
+        await updateDoc(routeRef, {
+          estudiantesSuscritos: true,
+        });
+        console.log("Ruta actualizada exitosamente en Firebase.");
+      } catch (error) {
+        console.error("Error al actualizar la ruta en Firebase:", error.message);
+      }
 
       navigate('/exitosa', {
         state: {
@@ -55,7 +70,7 @@ export default function Paypal() {
   const location = useLocation();
   const { selectedRoute } = location.state || {};
 
-  console.log("Datos recibidos en Paypal:", selectedRoute); 
+  console.log("Datos recibidos en Paypal:", selectedRoute);
 
   if (!selectedRoute || !selectedRoute.precio) {
     return (
