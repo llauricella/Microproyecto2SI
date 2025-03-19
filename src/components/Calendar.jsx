@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore, getDoc, doc } from "firebase/firestore";
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { UserContext } from "../Context/userContext";
@@ -104,26 +104,55 @@ function Calendar() {
 
     const handlePagarConPaypal = () => {
         if (Logged) {
-            const precio = parseFloat(decodedPriceParam); 
-        if (isNaN(precio)) {
-            console.error("El precio no es un número válido:", decodedPriceParam);
-            return;
-        }
-          navigate("/paypal", {
-            state: {
-              selectedRoute: {
-                destino: decodedRouteParam,
-                precio: precio, 
-                dificultad: decodedDiffParam,
-                descripcion: decodedDescriptionParam,
-                imagen: decodedImageUrlParam,
-              },
-            },
-          });
+            const user = auth.currentUser;
+
+            if (!user) {
+                console.error("No se encontró un usuario autenticado.");
+                return;
+            }
+
+            if (!selectedRoute) {
+                alert("Por favor, selecciona una ruta antes de continuar.");
+                return;
+            }
+
+            const fetchUserType = async () => {
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+                        if (userData.type !== "cliente") {
+                            alert("Solo los clientes pueden reservar rutas.");
+                            return;
+                        }
+
+                        navigate("/paypal", {
+                            state: {
+                                selectedRoute: {
+                                    destino: selectedRoute.destino,
+                                    precio: selectedRoute.precio,
+                                    tipo: selectedRoute.tipo,
+                                    guia: selectedRoute.guia,
+                                    descripcion: selectedRoute.descripcion,
+                                    dificultad: selectedRoute.dificultad,
+                                    imagen: selectedRoute.imagen,
+                                    fecha: selectedRoute.fecha,
+                                },
+                            },
+                        });
+                    } else {
+                        console.error("No se encontró el documento del usuario.");
+                    }
+                } catch (error) {
+                    console.error("Error al verificar el tipo de usuario:", error.message);
+                }
+            };
+
+            fetchUserType();
         } else {
-          navigate("/login");
+            navigate("/login");
         }
-      };
+    };
 
     return (
         <div className="p-4 max-w-md mx-auto bg-white rounded-lg shadow-md">

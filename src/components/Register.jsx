@@ -21,13 +21,16 @@ export default function Register() {
         try {
             const nombreRegistrado = await createUserWithEmailAndPassword(auth, email, password);
             console.log("Usuario registrado:", nombreRegistrado.user);
+
             await setDoc(doc(db, "users", nombreRegistrado.user.uid), {
                 name: name,
                 email: email,
                 uid: nombreRegistrado.user.uid,
                 fechaCreacion: new Date(),
-                type: 'cliente'
+                type: 'cliente',
+                rutas: [] 
             });
+
             setName("");
             setEmail("");
             setPassword("");

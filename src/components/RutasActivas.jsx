@@ -31,16 +31,23 @@ export default function RutasActivas() {
 
     const handleDeleteRoute = async (id) => {
         try {
+            const ruta = rutas.find(route => route.id === id);
+    
+            if (ruta.estudiantesSuscritos) {
+                setError("No se puede eliminar la ruta porque hay estudiantes inscritos.");
+                setTimeout(() => setError(""), 3000);
+                return;
+            }
+    
             await deleteDoc(doc(db, "routes", id));
             setRutas(prevRutas => prevRutas.filter(route => route.id !== id));
             setSuccess("Ruta eliminada con éxito");
-            setTimeout(() => setSuccess(""), 3000); // Ocultar el mensaje después de 3 segundos
+            setTimeout(() => setSuccess(""), 3000); 
         } catch (error) {
             console.error("Error al eliminar la ruta:", error.message);
             setError("Ocurrió un error al eliminar la ruta.");
         }
     };
-
     const handleFiltroChange = (e) => {
         setFiltro(e.target.value);
     };
