@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import humboldtImg from '../assets/humboldt.png';
 import picoImg from '../assets/pico.png';
 import quebradaImg from '../assets/quebrada.png';
 import sabasImg from '../assets/sabas.png';
 import Card from './Card';
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore"; 
+import { app } from '../Credentials';
+
+const db = getFirestore(app); 
 
 function Rutas() {
     const [reseñas, setReseñas] = useState({
@@ -15,6 +19,34 @@ function Rutas() {
 
     const [rutaSeleccionada, setRutaSeleccionada] = useState(null);
 
+    const cargarReseñas = async () => {
+        try {
+            const querySnapshot = await getDocs(collection(db, "reviews"));
+            const reseñasFirebase = querySnapshot.docs.map(doc => doc.data());
+
+            const reseñasOrganizadas = {
+                quebrada: [],
+                sabas: [],
+                humboldt: [],
+                pico: [],
+            };
+
+            reseñasFirebase.forEach(reseña => {
+                if (reseñasOrganizadas[reseña.ruta]) {
+                    reseñasOrganizadas[reseña.ruta].push(reseña);
+                }
+            });
+
+            setReseñas(reseñasOrganizadas);
+        } catch (error) {
+            console.error("Error al cargar las reseñas desde Firebase:", error.message);
+        }
+    };
+
+    useEffect(() => {
+        cargarReseñas();
+    }, []);
+
     const BadWord = (texto) => {
         const palabrasProhibidas = ['Mamaguevo', 'Coño', 'Pendejo', 'Puto', 'Marico', 'Culo', 'Verga', 'Chupalo', 'Chupasela', 'Carajo', 'Mierda', 'Puta', 'Pajuo', 'Chavista', 'Mojonero', 'Aguevoniado', 'Maldito', 'Maldita', 'mamaguevo', 'coño', 'pendejo', 'puto', 'marico', 'culo', 'verga', 'chupalo', 'chupasela', 'carajo', 'mierda', 'puta', 'pajuo', 'chavista', 'mojonero', 'aguevoniado', 'maldito', 'maldita'];
         return palabrasProhibidas.some(palabra =>
@@ -22,7 +54,7 @@ function Rutas() {
         );
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
@@ -47,14 +79,24 @@ function Rutas() {
         const nuevaReseña = {
             comentario: comentario,
             puntuacion: puntuacion,
+            ruta: rutaSeleccionada, 
+            fecha: new Date().toISOString(), 
         };
 
-        setReseñas((prevReseñas) => ({
-            ...prevReseñas,
-            [rutaSeleccionada]: [...prevReseñas[rutaSeleccionada], nuevaReseña],
-        }));
+        try {
+            await addDoc(collection(db, "reviews"), nuevaReseña);
+            console.log("Reseña guardada exitosamente en Firebase.");
 
-        e.target.reset();
+            setReseñas((prevReseñas) => ({
+                ...prevReseñas,
+                [rutaSeleccionada]: [...prevReseñas[rutaSeleccionada], nuevaReseña],
+            }));
+
+            e.target.reset();
+        } catch (error) {
+            console.error("Error al guardar la reseña en Firebase:", error.message);
+            alert("Ocurrió un error al guardar la reseña. Por favor, inténtalo de nuevo.");
+        }
     };
 
     return (
