@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import Humboldt from "../assets/humboldt.jpeg";
 import LomaSerrano from "../assets/lomaserrano.jpeg";
@@ -50,22 +50,24 @@ export default function Galeria() {
     return (
         <div className="bg-cover bg-center bg-no-repeat min-h-screen" style={{ backgroundImage: "url(/ruta/al/fondo/principal.jpg)" }}>
             <div className="container mx-auto py-10">
-                <div className="grid grid-cols-2 gap-6 px-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
                     {images.map((image, index) => (
                         <div key={index} className="relative">
-                            <img
-                                src={image.src}
-                                alt={image.alt}
-                                className="w-full h-64 object-cover rounded-lg border-4 border-white shadow-lg"
-                            />
-                            {isAdmin && (
-                                <div
-                                    className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition cursor-pointer"
-                                    onClick={() => openEditor(index)}
-                                >
-                                    <span className="text-white font-semibold">Editar</span>
-                                </div>
-                            )}
+                            <div className="bg-white p-4 rounded-lg shadow-lg transform transition-transform hover:scale-105">
+                                <img
+                                    src={image.src}
+                                    alt={image.alt}
+                                    className="w-full h-96 object-cover rounded-lg border-4 border-white shadow-md"
+                                />
+                                {isAdmin && (
+                                    <div
+                                        className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition cursor-pointer"
+                                        onClick={() => openEditor(index)}
+                                    >
+                                        <span className="text-white font-semibold">Editar</span>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     ))}
                 </div>
