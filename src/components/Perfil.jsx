@@ -26,8 +26,19 @@ export default function Perfil() {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData({ ...formData, photoURL: reader.result });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSave = () => {
-        updateProfile(formData); 
+        updateProfile(formData);
         setEditMode(false);
     };
 
@@ -46,13 +57,22 @@ export default function Perfil() {
             <div className={`bg-white p-6 rounded-lg shadow-lg ${editMode ? 'mt-10 w-96' : 'mt-[-20%] w-80'}`}>
                 <h2 className="text-2xl font-bold mb-4">Perfil</h2>
                 <div className="mb-4">
-                    {formData.photoURL ? (
-                        <img src={formData.photoURL} alt="Foto de perfil" className="w-24 h-24 rounded-full mx-auto" />
-                    ) : (
-                        <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto flex items-center justify-center">
-                            <span className="text-gray-500">Sin foto</span>
-                        </div>
-                    )}
+                    <label htmlFor="photoInput" className="cursor-pointer">
+                        {formData.photoURL ? (
+                            <img src={formData.photoURL} alt="Foto de perfil" className="w-24 h-24 rounded-full mx-auto" />
+                        ) : (
+                            <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto flex items-center justify-center">
+                                <span className="text-gray-500">Sin foto</span>
+                            </div>
+                        )}
+                    </label>
+                    <input
+                        id="photoInput"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="hidden"
+                    />
                 </div>
                 {editMode ? (
                     <div>
@@ -86,16 +106,6 @@ export default function Perfil() {
                                 className="w-full p-2 border border-gray-300 rounded"
                             />
                         </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700">Foto URL:</label>
-                            <input
-                                type="text"
-                                name="photoURL"
-                                value={formData.photoURL}
-                                onChange={handleChange}
-                                className="w-full p-2 border border-gray-300 rounded"
-                            />
-                        </div>
                         <button onClick={handleSave} className="bg-blue-500 text-white p-2 rounded">
                             Guardar
                         </button>
@@ -106,9 +116,9 @@ export default function Perfil() {
                 ) : (
                     <div>
                         <p><strong>Nombre:</strong> {formData.name || 'No disponible'}</p>
-                        <br/>
+                        <br />
                         <p><strong>Email:</strong> {formData.email || 'No disponible'}</p>
-                        <br/>
+                        <br />
                         <p><strong>Teléfono:</strong> {formData.phoneNumber || 'No disponible'}</p>
                         <button onClick={() => setEditMode(true)} className="bg-blue-500 text-white p-2 rounded mt-4">
                             Editar
