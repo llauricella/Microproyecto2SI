@@ -1,5 +1,5 @@
 import logoImg from '../assets/logo.png'; 
-import './styles.css'
+import './styles.css';
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useState } from 'react';
@@ -88,26 +88,53 @@ function Login() {
     };
 
     return (
-        <div className="flex flex-col justify-self-center min-h-screen">
-            {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">{error}</div>}
-            <div className='flex flex-col justify-self-center gap-6 bg-white rounded-xl p-10'>
-                <h1 className="flex justify-center text-3xl font-bold"> Iniciar sesión</h1>
-                <img src={logoImg} alt="Logo"/>
-                <form onSubmit={handleLogin} className="flex flex-col justify-center">
-                    Email
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} className="p-4 border rounded" type="text" placeholder='Introduce tu correo'/>
-                    <br></br>
-                    Contraseña
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="p-4 border rounded" type="Password" placeholder='Introduce tu contraseña'/>
-                    <br></br>
-                    <button className='bg-black text-white rounded-md p-2 cursor-pointer' type="submit">Iniciar sesión</button>
+        <div className="flex justify-center items-center min-h-screen  p-4">
+            <div className="flex flex-col gap-6 bg-white rounded-xl shadow-lg p-6 md:p-10 w-full max-w-md">
+                {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">{error}</div>}
+                <h1 className="text-center text-2xl md:text-3xl font-bold">Iniciar sesión</h1>
+                <img src={logoImg} alt="Logo" className="w-24 md:w-32 mx-auto" />
+                <form onSubmit={handleLogin} className="flex flex-col gap-4">
+                    <label className="text-sm md:text-base font-semibold">Email</label>
+                    <input 
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        className="p-3 border rounded text-sm md:text-base" 
+                        type="text" 
+                        placeholder="Introduce tu correo" 
+                    />
+                    <label className="text-sm md:text-base font-semibold">Contraseña</label>
+                    <input 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        className="p-3 border rounded text-sm md:text-base" 
+                        type="password" 
+                        placeholder="Introduce tu contraseña" 
+                    />
+                    <button className="bg-black text-white rounded-md p-3 text-sm md:text-base cursor-pointer" type="submit">
+                        Iniciar sesión
+                    </button>
                 </form>
-                <button className='bg-blue-500 text-white rounded-md p-2 cursor-pointer mt-2' onClick={handleGoogleLogin}>Iniciar sesión con Google</button>
-                <button className='bg-red-500 text-white rounded-md p-2 cursor-pointer mt-2' onClick={handleGoogleRegister}>Registrarse con Google</button>
-                <button className='bg-black text-white rounded-md p-2 cursor-pointer' onClick={() => navigate('/Register')}>Registrarse</button>
+                <button 
+                    className="bg-blue-500 text-white rounded-md p-3 text-sm md:text-base cursor-pointer mt-2" 
+                    onClick={handleGoogleLogin}
+                >
+                    Iniciar sesión con Google
+                </button>
+                <button 
+                    className="bg-red-500 text-white rounded-md p-3 text-sm md:text-base cursor-pointer mt-2" 
+                    onClick={handleGoogleRegister}
+                >
+                    Registrarse con Google
+                </button>
+                <button 
+                    className="bg-black text-white rounded-md p-3 text-sm md:text-base cursor-pointer mt-2" 
+                    onClick={() => navigate('/Register')}
+                >
+                    Registrarse
+                </button>
             </div>
         </div>
-    )
+    );
 }
 
 export default Login;

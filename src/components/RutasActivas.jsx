@@ -1,4 +1,4 @@
-import './styles.css'
+import './styles.css';
 import { getAuth } from "firebase/auth";
 import { useState, useEffect } from 'react';
 import { app } from '../Credentials';
@@ -48,6 +48,7 @@ export default function RutasActivas() {
             setError("Ocurrió un error al eliminar la ruta.");
         }
     };
+
     const handleFiltroChange = (e) => {
         setFiltro(e.target.value);
     };
@@ -71,12 +72,13 @@ export default function RutasActivas() {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen p-10">
-            <h1 className="text-3xl font-bold mb-8 bg-gray-100 rounded-xl p-2">Rutas Activas</h1>
-            {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">{error}</div>}
-            {success && <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">{success}</div>}
-            <div className="mb-6 flex flex-col md:flex-row items-center bg-amber-600 p-2 rounded-xl shadow-lg">
-                <select value={filtro} onChange={handleFiltroChange} className="p-2 mb-4 md:mb-0 md:mr-4 border rounded">
+        <div className="flex flex-col items-center min-h-screen p-4 md:p-8">
+            <h1 className="text-3xl md:text-4xl font-bold mb-8 bg-gray-100 rounded-xl p-2 text-center">Rutas Activas</h1>
+            {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 w-full max-w-4xl" role="alert">{error}</div>}
+            {success && <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 w-full max-w-4xl" role="alert">{success}</div>}
+            
+            <div className="mb-6 flex flex-col md:flex-row items-center bg-white p-4 rounded-xl shadow-lg w-full max-w-4xl gap-4">
+                <select value={filtro} onChange={handleFiltroChange} className="p-2 border rounded w-full md:w-auto">
                     <option value="">Selecciona un filtro</option>
                     <option value="fecha">Fecha</option>
                     <option value="guia">Guía</option>
@@ -88,17 +90,18 @@ export default function RutasActivas() {
                         value={criterio}
                         onChange={handleCriterioChange}
                         placeholder={`Introduce el ${filtro}`}
-                        className="p-2 mb-4 md:mb-0 border rounded"
+                        className="p-2 border rounded w-full md:w-auto"
                     />
                 )}
                 <button
-                    className="bg-blue-500 text-white p-2 rounded-lg shadow-lg"
+                    className="bg-blue-500 text-white p-2 rounded-lg shadow-lg w-full md:w-auto"
                     onClick={filtrarRutas}
                 >
                     Filtrar
                 </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl bg-amber-600 p-6 rounded-xl shadow-lg">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
                 {filtrarRutas().map(ruta => (
                     <div key={ruta.id} className="bg-white p-6 rounded-lg shadow-lg">
                         <h2 className="text-2xl font-bold mb-4">{ruta.destino}</h2>

@@ -21,7 +21,6 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
     }
 
     console.log("Creando orden con precio:", selectedRoute.precio);
-    console.log("Datos de la ruta:", selectedRoute.id);
     return actions.order.create({
       purchase_units: [
         {
@@ -45,7 +44,6 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
         await updateDoc(routeRef, {
           estudiantesSuscritos: true,
         });
-        console.log("Ruta actualizada exitosamente en Firebase.");
       } catch (error) {
         console.error("Error al actualizar la ruta en Firebase:", error.message);
       }
@@ -61,7 +59,7 @@ const PaypalButtonComponent = ({ selectedRoute }) => {
 
   return (
     <PayPalScriptProvider options={initialOptions}>
-      <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
+      <PayPalButtons createOrder={createOrder} onApprove={onApprove} style={{ layout: "vertical", width: "100%" }} />
     </PayPalScriptProvider>
   );
 };
@@ -74,12 +72,12 @@ export default function Paypal() {
 
   if (!selectedRoute || !selectedRoute.precio) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen p-4">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-          <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+          <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-800">
             Error: No se recibieron datos de la ruta.
           </h1>
-          <p className="text-lg text-gray-700 text-center">
+          <p className="text-lg md:text-xl text-gray-700 text-center">
             Por favor, selecciona una ruta nuevamente.
           </p>
         </div>
@@ -88,23 +86,23 @@ export default function Paypal() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+    <div className="flex justify-center items-center min-h-screen p-4">
+      <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-800">
           Pago con PayPal
         </h1>
 
         <div className="space-y-4 mb-6">
-          <p className="text-lg text-gray-700">
+          <p className="text-lg md:text-xl text-gray-700">
             <span className="font-semibold">Ruta:</span> {selectedRoute.destino}
           </p>
-          <p className="text-lg text-gray-700">
+          <p className="text-lg md:text-xl text-gray-700">
             <span className="font-semibold">Tipo:</span> {selectedRoute.tipo}
           </p>
-          <p className="text-lg text-gray-700">
+          <p className="text-lg md:text-xl text-gray-700">
             <span className="font-semibold">Precio:</span> ${selectedRoute.precio}
           </p>
-          <p className="text-lg text-gray-700">
+          <p className="text-lg md:text-xl text-gray-700">
             <span className="font-semibold">Guía:</span> {selectedRoute.guia}
           </p>
         </div>

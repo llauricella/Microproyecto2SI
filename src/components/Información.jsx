@@ -7,12 +7,12 @@ export default function Información() {
     const navigate = useNavigate();
 
     return (
-        <div className="p-4">
-            <h1 className="mx-auto w-1/4 text-center rounded-lg block bg-white text-3xl font-bold border-black border-4 mb-8">
+        <div className="p-4 md:p-8 max-w-4xl mx-auto">
+            <h1 className="mx-auto text-center rounded-lg bg-white text-2xl md:text-3xl font-bold border-black border-4 mb-8 p-2">
                 Información General
             </h1>
 
-            <div className="flex justify-between w-full gap-8 col-span-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <InformacionCard
                     title="Parque Nacional El Ávila"
                     text={[
@@ -32,16 +32,16 @@ export default function Información() {
             </div>
 
             {/* Contenedor para los botones */}
-            <div className="flex justify-center gap-4 mt-10">
+            <div className="flex flex-col md:flex-row justify-center gap-4 mt-10">
                 <button
-                    className="w-1/4 text-center rounded-lg bg-amber-600 text-3xl border-6 border-orange-300 mb-8 cursor-pointer font-bold"
+                    className="w-full md:w-1/4 text-center rounded-lg bg-amber-600 text-lg md:text-2xl border-4 border-orange-300 p-2 cursor-pointer font-bold"
                     onClick={() => navigate('/galeria')}
                 >
                     Galería
                 </button>
                 <button
-                    className="w-1/4 text-center rounded-lg bg-amber-600 text-3xl border-6 border-orange-300 mb-8 cursor-pointer font-bold"
-                    onClick={() => navigate('/foro')} // Cambiado a '/foro'
+                    className="w-full md:w-1/4 text-center rounded-lg bg-amber-600 text-lg md:text-2xl border-4 border-orange-300 p-2 cursor-pointer font-bold"
+                    onClick={() => navigate('/foro')}
                 >
                     Foro
                 </button>
