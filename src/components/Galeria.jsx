@@ -49,15 +49,16 @@ export default function Galeria() {
 
     return (
         <div className="bg-cover bg-center bg-no-repeat min-h-screen" style={{ backgroundImage: "url(/ruta/al/fondo/principal.jpg)" }}>
-            <div className="container mx-auto py-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
+            <div className="container mx-auto py-10 px-4">
+                <h1 className="text-2xl md:text-4xl font-bold text-center mb-8">Galería</h1>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {images.map((image, index) => (
                         <div key={index} className="relative">
                             <div className="bg-white p-4 rounded-lg shadow-lg transform transition-transform hover:scale-105">
                                 <img
                                     src={image.src}
                                     alt={image.alt}
-                                    className="w-full h-96 object-cover rounded-lg border-4 border-white shadow-md"
+                                    className="w-full h-48 md:h-64 object-cover rounded-lg border-4 border-white shadow-md"
                                 />
                                 {isAdmin && (
                                     <div
@@ -75,7 +76,7 @@ export default function Galeria() {
 
             {isEditorOpen && isAdmin && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-5 rounded-lg shadow-lg max-w-lg">
+                    <div className="bg-white p-5 rounded-lg shadow-lg max-w-lg w-full">
                         <h2 className="text-lg font-semibold mb-4">Selecciona una nueva imagen</h2>
                         <input type="file" accept="image/*" onChange={handleImageChange} className="mb-4" />
                         <div className="flex gap-4">

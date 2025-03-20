@@ -34,8 +34,6 @@ export default function CreaciónRuta() {
 
     const handleCreateRoute = async (e) => {
         e.preventDefault();
-        const today = new Date();
-        const selectedDate = new Date(fecha);
 
         if (!destino) {
             setError("Por favor selecciona un destino.");
@@ -88,30 +86,17 @@ export default function CreaciónRuta() {
         }
     };
 
-    const handleReserveRoute = async (routeId) => {
-        try {
-            const routeRef = doc(db, "routes", routeId); 
-            await updateDoc(routeRef, {
-                estudiantesSuscritos: true, 
-            });
-            console.log("Ruta reservada exitosamente.");
-        } catch (error) {
-            console.error("Error al reservar la ruta:", error.message);
-            setError("Ocurrió un error al reservar la ruta.");
-        }
-    };
-
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="bg-gray-200 p-10 rounded-xl shadow-lg w-96">
-                <h1 className="text-3xl font-bold mb-4 text-center">Crear Ruta</h1>
+        <div className="flex justify-center items-center min-h-screen p-4 md:p-8 ">
+            <div className="bg-white p-6 md:p-10 rounded-xl shadow-lg w-full max-w-lg">
+                <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Crear Ruta</h1>
                 {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">{error}</div>}
                 <form onSubmit={handleCreateRoute} className="flex flex-col">
-                    <label className="mb-2 font-bold text-lg" htmlFor="destino">Destino</label>
+                    <label className="mb-2 font-bold text-sm md:text-base" htmlFor="destino">Destino</label>
                     <select
                         value={destino}
                         onChange={(e) => setDestino(e.target.value)}
-                        className="p-2 mb-4 border rounded"
+                        className="p-2 mb-4 border rounded text-sm md:text-base"
                         id="destino"
                     >
                         <option value="">Selecciona un destino</option>
@@ -120,11 +105,11 @@ export default function CreaciónRuta() {
                         <option value="Hotel Humboldt">Hotel Humboldt</option>
                         <option value="Pico Naiguatá">Pico Naiguatá</option>
                     </select>
-                    <label className="mb-2 font-bold text-lg" htmlFor="tipo">Tipo</label>
+                    <label className="mb-2 font-bold text-sm md:text-base" htmlFor="tipo">Tipo</label>
                     <select
                         value={tipo}
                         onChange={(e) => setTipo(e.target.value)}
-                        className="p-2 mb-4 border rounded"
+                        className="p-2 mb-4 border rounded text-sm md:text-base"
                         id="tipo"
                     >
                         <option value="">Selecciona un tipo de actividad</option>
@@ -132,19 +117,19 @@ export default function CreaciónRuta() {
                         <option value="Corrida">Corrida</option>
                         <option value="Acampada">Acampada</option>
                     </select>
-                    <label className="mb-2 font-bold text-lg" htmlFor="fecha">Fecha</label>
+                    <label className="mb-2 font-bold text-sm md:text-base" htmlFor="fecha">Fecha</label>
                     <input
                         value={fecha}
                         onChange={(e) => setFecha(e.target.value)}
-                        className="p-2 mb-4 border rounded"
+                        className="p-2 mb-4 border rounded text-sm md:text-base"
                         type="date"
                         id="fecha"
                     />
-                    <label className="mb-2 font-bold text-lg" htmlFor="guia">Guía</label>
+                    <label className="mb-2 font-bold text-sm md:text-base" htmlFor="guia">Guía</label>
                     <select
                         value={guia}
                         onChange={(e) => setGuia(e.target.value)}
-                        className="p-2 mb-4 border rounded"
+                        className="p-2 mb-4 border rounded text-sm md:text-base"
                         id="guia"
                     >
                         <option value="">Selecciona un guía</option>
@@ -154,7 +139,7 @@ export default function CreaciónRuta() {
                             </option>
                         ))}
                     </select>
-                    <button className="bg-amber-600 text-white p-2 rounded-lg shadow-lg" type="submit">Crear Ruta</button>
+                    <button className="bg-amber-600 text-white p-2 rounded-lg shadow-lg text-sm md:text-base" type="submit">Crear Ruta</button>
                 </form>
             </div>
         </div>

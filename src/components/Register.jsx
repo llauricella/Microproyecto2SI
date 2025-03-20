@@ -1,6 +1,6 @@
 import logoImg from '../assets/logo.png'; 
-import './styles.css'
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import './styles.css';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { app } from '../Credentials';
@@ -55,24 +55,50 @@ export default function Register() {
     };
 
     return (
-        <div className="flex flex-col justify-self-center min-h-screen">
-            {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">{error}</div>}
-            <div className='flex flex-col justify-self-center gap-6 bg-white rounded-xl p-10'>
-                <h1 className="flex justify-center text-3xl font-bold"> Registrarse</h1>
-                <img src={logoImg} alt="Logo"/>
-                <form onSubmit={handleRegister} className="flex flex-col justify-center">
-                    Email
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} className="p-4 border rounded" type="text" placeholder='Introduce tu correo'/>
-                    <br></br>
-                    Nombre
-                    <input value={name} onChange={(e) => setName(e.target.value)} className="p-4 border rounded" type="text" placeholder='Introduce tu nombre'/>
-                    <br></br>
-                    Contraseña
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="p-4 border rounded" type="Password" placeholder='Introduce tu contraseña'/>
-                    <br></br>
-                    <button className='bg-black text-white rounded-md p-2 cursor-pointer' type="submit">Registrarse</button>
+        <div className="flex justify-center items-center min-h-screen p-4">
+            <div className="bg-white p-6 md:p-10 rounded-xl shadow-lg w-full max-w-md">
+                {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">{error}</div>}
+                <h1 className="text-center text-2xl md:text-3xl font-bold mb-6">Registrarse</h1>
+                <img src={logoImg} alt="Logo" className="w-24 md:w-32 mx-auto mb-6" />
+                <form onSubmit={handleRegister} className="flex flex-col gap-4">
+                    <div>
+                        <label className="block text-sm md:text-base font-semibold mb-1">Email</label>
+                        <input 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                            className="w-full p-3 border rounded text-sm md:text-base" 
+                            type="text" 
+                            placeholder="Introduce tu correo" 
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm md:text-base font-semibold mb-1">Nombre</label>
+                        <input 
+                            value={name} 
+                            onChange={(e) => setName(e.target.value)} 
+                            className="w-full p-3 border rounded text-sm md:text-base" 
+                            type="text" 
+                            placeholder="Introduce tu nombre" 
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm md:text-base font-semibold mb-1">Contraseña</label>
+                        <input 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            className="w-full p-3 border rounded text-sm md:text-base" 
+                            type="password" 
+                            placeholder="Introduce tu contraseña" 
+                        />
+                    </div>
+                    <button 
+                        className="bg-black text-white rounded-md p-3 text-sm md:text-base cursor-pointer hover:bg-gray-800 transition-colors"
+                        type="submit"
+                    >
+                        Registrarse
+                    </button>
                 </form>
             </div>
         </div>
-    )
+    );
 }

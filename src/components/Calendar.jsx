@@ -72,7 +72,6 @@ function Calendar() {
         return days;
     }
 
-
     const days = generateDays();
 
     const isToday = (dateObj) => {
@@ -129,7 +128,6 @@ function Calendar() {
                     return;
                 }
 
-                // Continuar con la reserva si el usuario es un cliente
                 const precio = parseFloat(decodedPriceParam);
                 if (isNaN(precio)) {
                     console.error("El precio no es un número válido:", decodedPriceParam);
@@ -160,7 +158,7 @@ function Calendar() {
     };
 
     return (
-        <div className="p-4 max-w-md mx-auto bg-white rounded-lg shadow-md">
+        <div className="p-4 max-w-screen-md mx-auto bg-white rounded-lg shadow-md">
             <div id="Encabezado" className="flex justify-between items-center mb-4">
                 <button onClick={prevMonth} className="p-2 hover:bg-gray-100 rounded-full cursor-pointer text-xl">
                     ←
@@ -198,7 +196,7 @@ function Calendar() {
                 ))}
             </div>
 
-            <div id="mes" className="grid grid-cols-7 gap-1">
+            <div id="mes" className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-1">
                 {days.map(day => {
                     const isSelected = selectedDate?.toDateString() === day.dateObj.toDateString();
                     const isRutaDate = rutas.some(ruta => {

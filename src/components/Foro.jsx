@@ -45,8 +45,8 @@ export default function Forum() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-amber-50 rounded-lg">
-      <h1 className="text-2xl font-bold mb-4">Foro de Discusión</h1>
+    <div className="max-w-2xl mx-auto p-4 md:p-6 bg-amber-50 rounded-lg shadow-lg">
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Foro de Discusión</h1>
       {!selectedPost ? (
         <>
           <div className="mb-6">
@@ -55,39 +55,39 @@ export default function Forum() {
               placeholder="Título de la publicación"
               value={newPost.title}
               onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-              className="mb-2 w-full p-2 border border-gray-300 rounded"
+              className="mb-2 w-full p-2 border border-gray-300 rounded text-sm md:text-base"
             />
             <input
               type="text"
               placeholder="Autor"
               value={newPost.author}
               onChange={(e) => setNewPost({ ...newPost, author: e.target.value })}
-              className="mb-2 w-full p-2 border border-gray-300 rounded"
+              className="mb-2 w-full p-2 border border-gray-300 rounded text-sm md:text-base"
             />
-            <button onClick={addPost} className="w-full bg-blue-500 text-white py-2 rounded cursor-pointer">Publicar</button>
+            <button onClick={addPost} className="w-full bg-blue-500 text-white py-2 rounded text-sm md:text-base cursor-pointer">Publicar</button>
           </div>
           <div className="space-y-4">
             {posts.map((post) => (
-              <div key={post.id} className="p-4 shadow-md border border-gray-200 rounded cursor-pointer" onClick={() => setSelectedPost(post)}>
-                <h2 className="text-lg font-semibold">{post.title}</h2>
-                <p className="text-sm text-gray-500">Por {post.author} - {post.comments.length} comentarios</p>
+              <div key={post.id} className="p-4 shadow-md border border-gray-200 rounded cursor-pointer hover:bg-gray-100" onClick={() => setSelectedPost(post)}>
+                <h2 className="text-lg md:text-xl font-semibold">{post.title}</h2>
+                <p className="text-sm md:text-base text-gray-500">Por {post.author} - {post.comments.length} comentarios</p>
               </div>
             ))}
           </div>
         </>
       ) : (
         <div>
-          <button onClick={() => setSelectedPost(null)} className="mb-4 text-blue-500 cursor-pointer">Volver al foro</button>
-          <h2 className="text-xl font-semibold">{selectedPost.title}</h2>
-          <p className="text-gray-500">Por {selectedPost.author}</p>
-          <h3 className="mt-4 text-lg font-semibold">Comentarios:</h3>
-          <div className="border p-4 rounded-md mt-2">
+          <button onClick={() => setSelectedPost(null)} className="mb-4 text-blue-500 cursor-pointer text-sm md:text-base">Volver al foro</button>
+          <h2 className="text-xl md:text-2xl font-semibold">{selectedPost.title}</h2>
+          <p className="text-gray-500 text-sm md:text-base">Por {selectedPost.author}</p>
+          <h3 className="mt-4 text-lg md:text-xl font-semibold">Comentarios:</h3>
+          <div className="border p-4 rounded-md mt-2 space-y-2">
             {selectedPost.comments.length > 0 ? (
               selectedPost.comments.map((comment, index) => (
-                <p key={index} className="border-b py-1">{comment}</p>
+                <p key={index} className="border-b py-1 text-sm md:text-base">{comment}</p>
               ))
             ) : (
-              <p className="text-gray-500">No hay comentarios aún.</p>
+              <p className="text-gray-500 text-sm md:text-base">No hay comentarios aún.</p>
             )}
           </div>
           <div className="mt-4">
@@ -96,9 +96,9 @@ export default function Forum() {
               placeholder="Escribe un comentario"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-sm md:text-base"
             />
-            <button onClick={addComment} className="w-full bg-green-500 text-white py-2 rounded mt-2 cursor-pointer">Comentar</button>
+            <button onClick={addComment} className="w-full bg-green-500 text-white py-2 rounded mt-2 text-sm md:text-base cursor-pointer">Comentar</button>
           </div>
         </div>
       )}

@@ -10,7 +10,6 @@ const auth = getAuth(app);
 export default function RutasAsignadas() {
     const [rutas, setRutas] = useState([]);
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
     const [filtro, setFiltro] = useState("");
     const [criterio, setCriterio] = useState("");
 
@@ -23,10 +22,8 @@ export default function RutasAsignadas() {
                     return;
                 }
 
-                // Obtener el nombre del guía desde el perfil del usuario autenticado
                 const guiaName = user.displayName;
 
-                // Consultar las rutas asignadas al guía
                 const rutasQuery = query(collection(db, "routes"), where("guia", "==", guiaName));
                 const querySnapshot = await getDocs(rutasQuery);
                 const rutasList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -61,12 +58,11 @@ export default function RutasAsignadas() {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen p-10">
-            <h1 className="text-3xl font-bold mb-8 bg-gray-100 rounded-xl p-2">Rutas Asignadas</h1>
-            {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">{error}</div>}
-            {success && <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">{success}</div>}
-            <div className="mb-6 flex flex-col md:flex-row items-center bg-amber-600 p-2 rounded-xl shadow-lg">
-                <select value={filtro} onChange={handleFiltroChange} className="p-2 mb-4 md:mb-0 md:mr-4 border rounded">
+        <div className="flex flex-col items-center min-h-screen p-4 md:p-8">
+            <h1 className="text-3xl md:text-4xl font-bold mb-8 bg-gray-100 rounded-xl p-2 text-center">Rutas Asignadas</h1>
+            {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 w-full max-w-4xl" role="alert">{error}</div>}
+            <div className="mb-6 flex flex-col md:flex-row items-center bg-white p-4 rounded-xl shadow-lg w-full max-w-4xl gap-4">
+                <select value={filtro} onChange={handleFiltroChange} className="p-2 border rounded w-full md:w-auto">
                     <option value="">Selecciona un filtro</option>
                     <option value="fecha">Fecha</option>
                     <option value="tipo">Tipo</option>
@@ -77,17 +73,18 @@ export default function RutasAsignadas() {
                         value={criterio}
                         onChange={handleCriterioChange}
                         placeholder={`Introduce el ${filtro}`}
-                        className="p-2 mb-4 md:mb-0 border rounded"
+                        className="p-2 border rounded w-full md:w-auto"
                     />
                 )}
                 <button
-                    className="bg-blue-500 text-white p-2 rounded-lg shadow-lg"
+                    className="bg-blue-500 text-white p-2 rounded-lg shadow-lg w-full md:w-auto"
                     onClick={filtrarRutas}
                 >
                     Filtrar
                 </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl bg-amber-600 p-6 rounded-xl shadow-lg">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
                 {filtrarRutas().map(ruta => (
                     <div key={ruta.id} className="bg-white p-6 rounded-lg shadow-lg">
                         <h2 className="text-2xl font-bold mb-4">{ruta.destino}</h2>
