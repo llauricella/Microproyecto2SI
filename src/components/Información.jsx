@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.css'
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import InformacionCard from './InformacionCard';
@@ -31,7 +31,6 @@ export default function Información() {
                 />
             </div>
 
-            {/* Contenedor para los botones */}
             <div className="flex justify-center gap-4 mt-10">
                 <button
                     className="w-1/4 text-center rounded-lg bg-amber-600 text-3xl border-6 border-orange-300 mb-8 cursor-pointer font-bold"
@@ -41,7 +40,7 @@ export default function Información() {
                 </button>
                 <button
                     className="w-1/4 text-center rounded-lg bg-amber-600 text-3xl border-6 border-orange-300 mb-8 cursor-pointer font-bold"
-                    onClick={() => navigate('/foro')} // Cambiado a '/foro'
+                    onClick={() => navigate('/foro')} 
                 >
                     Foro
                 </button>
